@@ -13,6 +13,7 @@
 		5836ED242854D8660076C642 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5836ED222854D8660076C642 /* LaunchScreen.storyboard */; };
 		5836ED2D2854DB250076C642 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5836ED2C2854DB250076C642 /* PasswordTextField.swift */; };
 		5836ED302854F3020076C642 /* PasswordCriteriaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5836ED2F2854F3020076C642 /* PasswordCriteriaView.swift */; };
+		5836ED332855005B0076C642 /* PasswordStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5836ED322855005B0076C642 /* PasswordStatusView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		5836ED252854D8660076C642 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5836ED2C2854DB250076C642 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
 		5836ED2F2854F3020076C642 /* PasswordCriteriaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCriteriaView.swift; sourceTree = "<group>"; };
+		5836ED322855005B0076C642 /* PasswordStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordStatusView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				5836ED2F2854F3020076C642 /* PasswordCriteriaView.swift */,
+				5836ED322855005B0076C642 /* PasswordStatusView.swift */,
 			);
 			name = PasswordStatusView;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 				5836ED1C2854D8620076C642 /* ViewController.swift in Sources */,
 				5836ED182854D8620076C642 /* AppDelegate.swift in Sources */,
 				5836ED302854F3020076C642 /* PasswordCriteriaView.swift in Sources */,
+				5836ED332855005B0076C642 /* PasswordStatusView.swift in Sources */,
 				5836ED2D2854DB250076C642 /* PasswordTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
