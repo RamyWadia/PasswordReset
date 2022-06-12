@@ -9,24 +9,31 @@ import UIKit
 
 protocol PasswordTextFieldDelegate: AnyObject {
     func editingChanged(_ sender: PasswordTextField)
+    func editingDidEnd(_ sender: PasswordTextField)
 }
 
 class PasswordTextField: UIView {
     
+    typealias CustomValidation = (_ textValue: String?) -> (Bool, String)?
+    
     let lockImageView = UIImageView(image: UIImage(systemName: "lock.fill"))
     let textField = UITextField()
-    let placeHolderText: String
     let eyeButton = UIButton(type: .custom)
     let deviderView = UIView()
     let errorLabel = UILabel()
     
+    let placeHolderText: String
+    var customValidation: CustomValidation?
     weak var delegate: PasswordTextFieldDelegate?
+    
+    var text: String? {
+        get { return textField.text }
+        set { textField.text = newValue }
+    }
     
     init(placeHolderText: String) {
         self.placeHolderText = placeHolderText
-        
         super.init(frame: .zero)
-        
         style()
         layout()
     }
@@ -127,5 +134,36 @@ extension PasswordTextField {
 
 //  MARK: - UITextFieldDelegate
 extension PasswordTextField: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        delegate?.editingDidEnd(self)
+    }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return true
+    }
+}
+
+//  MARK: - Validation
+extension PasswordTextField {
+    func validate() -> Bool {
+        if let customValidation = customValidation,
+           let customValidationResult = customValidation(text),
+           customValidationResult.0 == false {
+            showError(customValidationResult.1)
+            return true
+        }
+        clearError()
+        return true
+    }
+    
+    private func showError(_ errorMessage: String) {
+        errorLabel.isHidden = false
+        errorLabel.text = errorMessage
+    }
+    
+    private func clearError() {
+        errorLabel.isHidden = true
+        errorLabel.text = ""
+    }
 }
