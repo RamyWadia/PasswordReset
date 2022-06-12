@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol PasswordTextFieldDelegate: AnyObject {
+    func editingChanged(_ sender: PasswordTextField)
+}
+
 class PasswordTextField: UIView {
     
     let lockImageView = UIImageView(image: UIImage(systemName: "lock.fill"))
@@ -15,6 +19,8 @@ class PasswordTextField: UIView {
     let eyeButton = UIButton(type: .custom)
     let deviderView = UIView()
     let errorLabel = UILabel()
+    
+    weak var delegate: PasswordTextFieldDelegate?
     
     init(placeHolderText: String) {
         self.placeHolderText = placeHolderText
@@ -48,6 +54,7 @@ extension PasswordTextField {
         textField.keyboardType = .asciiCapable
         textField.attributedPlaceholder = NSAttributedString(string: placeHolderText,
                                                              attributes: [.foregroundColor: UIColor.secondaryLabel])
+        textField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         
         eyeButton.translatesAutoresizingMaskIntoConstraints = false
         eyeButton.setImage(UIImage(systemName: "eye.circle"), for: .normal)
@@ -65,7 +72,7 @@ extension PasswordTextField {
         errorLabel.text = "Your password must meet the requirement below"
         errorLabel.adjustsFontSizeToFitWidth = true
         errorLabel.minimumScaleFactor = 0.8
-        errorLabel.isHidden = false
+        errorLabel.isHidden = true
         
     }
     
@@ -104,14 +111,21 @@ extension PasswordTextField {
     }
 }
 
-extension PasswordTextField: UITextFieldDelegate {
-    
-}
 
-//MARK: Actions
+
+//  MARK: - Actions
 extension PasswordTextField {
     @objc func togglePasswordView() {
         textField.isSecureTextEntry.toggle()
         eyeButton.isSelected.toggle()
     }
+    
+    @objc func textFieldEditingChanged(_ sender: UITextField) {
+        delegate?.editingChanged(self)
+    }
+}
+
+//  MARK: - UITextFieldDelegate
+extension PasswordTextField: UITextFieldDelegate {
+    
 }
