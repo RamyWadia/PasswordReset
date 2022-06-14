@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     let confirmPasswordTextField = PasswordTextField(placeHolderText: "Re-enter new password")
     let resetButton = UIButton(type: .system)
     
+    var alert: UIAlertController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -65,7 +67,7 @@ extension ViewController {
             }
             
             guard text == self.newPasswordTextField.text else {
-                return (false, "Password do not match.")
+                return (false, "Passwords do not match.")
             }
             
             return (true, "")
@@ -160,6 +162,7 @@ extension ViewController {
 
 //  MARK: - Actions
 extension ViewController {
+    
     @objc func resetPasswordButtonTapped() {
         view.endEditing(true)
         
@@ -167,12 +170,13 @@ extension ViewController {
         let isValidConfirmPassword = confirmPasswordTextField.validate()
         
         if isValidNewPassword && isValidConfirmPassword {
-           showAlert(title: "Success", message: "You have successfully changed your password.")
+           showAlert(title: "Success", message: "Your password reset correctly")
         }
     }
     
     private func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        guard let alert = alert else { return }
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         
         present(alert, animated: true, completion: nil)
@@ -198,3 +202,15 @@ extension ViewController: PasswordTextFieldDelegate {
     }
 }
 
+//  MARK: - Tests
+extension ViewController {
+    var newPasswordText: String? {
+        get { newPasswordTextField.text }
+        set { newPasswordTextField.text = newValue }
+    }
+    
+    var confirmPasswordText: String? {
+        get { confirmPasswordTextField.text }
+        set { confirmPasswordTextField.text = newValue }
+    }
+}

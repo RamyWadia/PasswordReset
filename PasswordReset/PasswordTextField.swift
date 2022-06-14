@@ -151,7 +151,7 @@ extension PasswordTextField {
            let customValidationResult = customValidation(text),
            customValidationResult.0 == false {
             showError(customValidationResult.1)
-            return true
+            return false
         }
         clearError()
         return true
