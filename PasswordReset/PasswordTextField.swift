@@ -59,9 +59,9 @@ extension PasswordTextField {
         textField.placeholder = placeHolderText
         textField.delegate = self
         textField.keyboardType = .asciiCapable
+        textField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         textField.attributedPlaceholder = NSAttributedString(string: placeHolderText,
                                                              attributes: [.foregroundColor: UIColor.secondaryLabel])
-        textField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         
         eyeButton.translatesAutoresizingMaskIntoConstraints = false
         eyeButton.setImage(UIImage(systemName: "eye.circle"), for: .normal)

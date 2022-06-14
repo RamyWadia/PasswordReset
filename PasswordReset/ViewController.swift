@@ -27,6 +27,7 @@ class ViewController: UIViewController {
 extension ViewController {
     func setup() {
         setupNewPassword()
+        setupConfirmPassword()
         setupDismissKeyboardGesture()
     }
     
@@ -37,10 +38,40 @@ extension ViewController {
                 self.statusView.reset()
                 return (false, "Enter your password")
             }
+            
+            let validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,@:?!()$\\/#"
+            let invalidSet = CharacterSet(charactersIn: validChars).inverted
+            guard text.rangeOfCharacter(from: invalidSet) == nil else {
+                self.statusView.reset()
+                return (false, "Enter valid special chars (.,@:?!()$\\/#) with no spaces")
+            }
+            
+            self.statusView.updateDisplay(text)
+            if !self.statusView.validate(text) {
+                return (false, "Your password must meet the requirements below")
+            }
+            
             return (true, "")
         }
         
         newPasswordTextField.customValidation = newPasswordValidation
+    }
+    
+    private func setupConfirmPassword() {
+        let confirmPasswordValidation: CustomValidation = { text in
+            guard let text = text, !text.isEmpty else {
+                return (false, "Enter your password.")
+            }
+            
+            guard text == self.newPasswordTextField.text else {
+                return (false, "Password do not match.")
+            }
+            
+            return (true, "")
+        }
+        
+        confirmPasswordTextField.customValidation = confirmPasswordValidation
+        confirmPasswordTextField.delegate = self
     }
     
     private func setupDismissKeyboardGesture() {
@@ -84,8 +115,8 @@ extension ViewController {
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            stackView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2),
-            view.trailingAnchor.constraint(equalToSystemSpacingAfter: stackView.trailingAnchor, multiplier: 2)
+            stackView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 4),
+            view.trailingAnchor.constraint(equalToSystemSpacingAfter: stackView.trailingAnchor, multiplier: 4)
         ])
     }
 }
@@ -102,7 +133,10 @@ extension ViewController: PasswordTextFieldDelegate {
     
     func editingDidEnd(_ sender: PasswordTextField) {
         if sender === newPasswordTextField {
+            statusView.shouldResetCriteria = false
             _ = newPasswordTextField.validate()
+        } else if sender === confirmPasswordTextField {
+            _ = confirmPasswordTextField.validate()
         }
     }
 }

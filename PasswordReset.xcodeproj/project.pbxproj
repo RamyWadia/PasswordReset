@@ -64,7 +64,7 @@
 				5836ED172854D8620076C642 /* AppDelegate.swift */,
 				5836ED1B2854D8620076C642 /* ViewController.swift */,
 				5836ED2C2854DB250076C642 /* PasswordTextField.swift */,
-				5836ED2E2854F2CE0076C642 /* PasswordStatusView */,
+				588B682F285892BD0036E1CB /* PasswordSatusView */,
 			);
 			path = PasswordReset;
 			sourceTree = "<group>";
@@ -79,14 +79,14 @@
 			name = Files;
 			sourceTree = "<group>";
 		};
-		5836ED2E2854F2CE0076C642 /* PasswordStatusView */ = {
+		588B682F285892BD0036E1CB /* PasswordSatusView */ = {
 			isa = PBXGroup;
 			children = (
 				5836ED2F2854F3020076C642 /* PasswordCriteriaView.swift */,
 				5836ED322855005B0076C642 /* PasswordStatusView.swift */,
 				58B171832855E25400E0786A /* PasswordCriteria.swift */,
 			);
-			name = PasswordStatusView;
+			path = PasswordSatusView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
